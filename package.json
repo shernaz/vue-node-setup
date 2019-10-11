@@ -1,6 +1,6 @@
 {
   "name": "vuejs-node-server-side-pagination-example",
-  "description": "Vue.js + Node - Server Side Pagination Tutorial & Example",
+  "description": "Vue.js + Node - Setup",
   "version": "1.0.0",
   "scripts": {
     "client": "cd client && npm start",
