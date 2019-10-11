@@ -1,0 +1,17 @@
+{
+  "name": "vuejs-node-server-side-pagination-example",
+  "description": "Vue.js + Node - Server Side Pagination Tutorial & Example",
+  "version": "1.0.0",
+  "scripts": {
+    "client": "cd client && npm start",
+    "server": "cd server && npm start",
+    "start": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "devDependencies": {
+    "concurrently": "4.1.1"
+  },
+  "keywords": [],
+  "dependencies": {
+    "axios": "0.19.0"
+  }
+}
