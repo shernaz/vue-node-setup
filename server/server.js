@@ -32,34 +32,17 @@ app.get("/api/items", (req, res, next) => {
   return res.json({ pager, pageOfItems });
 });
 
-app.get("/api/sherry", (req, res, next) => {
-  console.log("####################################################");
-  axios("https://api.github.com/users/thiruppathi")
-    .then(response => {
-      console.log("####################################################");
-
-      console.log(response);
-      console.log("####################################################");
-
-      return res.json(response);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-});
-
 app.get("/api/payments", (req, res, next) => {
   console.log("process.env:", process.env.USERNAME, process.env.PASSWORD);
-
   axios({
     method: "post",
     url: "https://checkout-test.adyen.com/v49/payments",
     auth: {
-      username: process.env.USERNAME,
-      password: process.env.PASSWORD
+      username: process.env.USERNAME, //configurable
+      password: process.env.PASSWORD //configurable
     },
     data: {
-      merchantAccount: "Shernaz",
+      merchantAccount: "Shernaz", //configurable
       reference: "Sherry iDEAL test",
       amount: {
         currency: "EUR",
@@ -72,9 +55,29 @@ app.get("/api/payments", (req, res, next) => {
       returnUrl: "https://your-company.com/..."
     }
   })
-    .then(response => {
-      console.log(response);
-      return res.json({ result: response });
+    .then(({ data }) => {
+      return res.json(data);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+});
+
+app.get("/api/paymentMethods", (req, res, next) => {
+  axios({
+    method: "post",
+    url: "https://checkout-test.adyen.com/v49/paymentMethods",
+    auth: {
+      username: process.env.USERNAME, //configurable
+      password: process.env.PASSWORD //configurable
+    },
+
+    data: {
+      merchantAccount: "Shernaz" //configurable
+    }
+  })
+    .then(({ data }) => {
+      return res.json(data);
     })
     .catch(error => {
       console.log(error);
