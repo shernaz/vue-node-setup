@@ -10,7 +10,7 @@
           "closeable": true,
           "options": {
             "port": 8081,
-            "url": "https://nyt78-8081.sse.codesandbox.io"
+            "url": "https://lkog6-8081.sse.codesandbox.io"
           }
         }
       ]

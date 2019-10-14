@@ -33,15 +33,19 @@ app.get("/api/items", (req, res, next) => {
 });
 
 app.get("/api/sherry", (req, res, next) => {
-  axios.get("https://api.github.com/users/thiruppathi").then(
-    response => {
+  console.log("####################################################");
+  axios("https://api.github.com/users/thiruppathi")
+    .then(response => {
+      console.log("####################################################");
+
       console.log(response);
-    },
-    error => {
+      console.log("####################################################");
+
+      return res.json(response);
+    })
+    .catch(error => {
       console.log(error);
-    }
-  );
-  return res.json({ hello: "Sherry" });
+    });
 });
 
 app.get("/api/payments", (req, res, next) => {
@@ -67,16 +71,14 @@ app.get("/api/payments", (req, res, next) => {
       },
       returnUrl: "https://your-company.com/..."
     }
-  }).then(
-    response => {
+  })
+    .then(response => {
       console.log(response);
       return res.json({ result: response });
-    },
-    error => {
-      // return res.json({ error });
+    })
+    .catch(error => {
       console.log(error);
-    }
-  );
+    });
 });
 
 // proxy requests for front end to client app
