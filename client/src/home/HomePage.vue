@@ -1,65 +1,65 @@
 <template>
-  <div class="card text-center m-3">
-    <h3 class="card-header">Vue.js + Node - Server Side Pagination Example</h3>
-    <div class="card-body">
-      <div v-for="item in pageOfItems" :key="item.id">{{item.name}}</div>
-    </div>
-    <div class="card-footer pb-0 pt-3">
-      <ul v-if="pager.pages && pager.pages.length" class="pagination">
-        <li :class="{'disabled':pager.currentPage === 1}" class="page-item first-item">
-          <router-link :to="{ query: { page: 1 }}" class="page-link">First</router-link>
-        </li>
-        <li :class="{'disabled':pager.currentPage === 1}" class="page-item previous-item">
-          <router-link :to="{ query: { page: pager.currentPage - 1 }}" class="page-link">Previous</router-link>
-        </li>
-        <li
-          v-for="page in pager.pages"
-          :key="page"
-          :class="{'active':pager.currentPage === page}"
-          class="page-item number-item"
-        >
-          <router-link :to="{ query: { page: page }}" class="page-link">{{page}}</router-link>
-        </li>
-        <li
-          :class="{'disabled':pager.currentPage === pager.totalPages}"
-          class="page-item next-item"
-        >
-          <router-link :to="{ query: { page: pager.currentPage + 1 }}" class="page-link">Next</router-link>
-        </li>
-        <li
-          :class="{'disabled':pager.currentPage === pager.totalPages}"
-          class="page-item last-item"
-        >
-          <router-link :to="{ query: { page: pager.totalPages }}" class="page-link">Last</router-link>
-        </li>
-      </ul>
-    </div>
-  </div>
+  <div>
+    <div class="card text-center m-3">Hello Dropin Homepage</div>
+    <div id="dropin"></div>
+  </div>  
 </template>
 
 <script>
+import paymentMethodsResponse from '../assets/paymentMethodsResponse.json';
+
 export default {
-    data () {
-        return {
-            pager: {},
-            pageOfItems: []
-        }
-    },
-    watch: {
-        '$route.query.page': {
-            immediate: true,
-            handler(page) {
-                page = parseInt(page) || 1;
-                if (page !== this.pager.currentPage) {
-                    fetch(/api/items?page=${page}, { method: 'GET' })
-                        .then(response => response.json())
-                        .then(({pager, pageOfItems}) => {
-                            this.pager = pager;
-                            this.pageOfItems = pageOfItems;
-                        });
-                }
-            }
-        }
-    }
+   mounted: function () {
+    // `this` points to the vm instance
+    console.log('sherry');
+    const configuration = {
+locale: "en-US",
+environment: "test",
+originKey: "pub.v2.8115607642724866.aHR0cHM6Ly9sa29nNi04MDgxLnNzZS5jb2Rlc2FuZGJveC5pbw.a9zWMXsvzRlLO7nkb5U4VfrnQ9fVYFBP8lgvI7FNNIg",
+paymentMethodsResponse: paymentMethodsResponse
+};
+const checkout = new AdyenCheckout(configuration);
+
+const dropin = checkout
+.create('dropin', {
+paymentMethodsConfiguration: {
+card: { // Example optional configuration for Cards
+hasHolderName: true,
+holderNameRequired: true,
+enableStoreDetails: true,
+name: 'Credit or debit card'
 }
+},
+onSubmit: (state, dropin) => {
+makePayment(state.data)
+// Your function calling your server to make the /payments request
+.then(action => {
+dropin.handleAction(action);
+// Drop-in handles the action object from the /payments response
+})
+.catch(error => {
+throw Error(error);
+});
+},
+onAdditionalDetails: (state, dropin) => {
+makeDetailsCall(state.data)
+// Your function calling your server to make a /payments/details request
+.then(action => {
+dropin.handleAction(action);
+// Drop-in handles the action object from the /payments/details response
+})
+.catch(error => {
+throw Error(error);
+});
+},
+// Required for Apple Pay. Event called when the payment sheet is displayed.
+// For more information, see Apple Pay documentation https://developer.apple.com/documentation/apple_pay_on_the_web/applepaysession/1778021-onvalidatemerchant
+onValidateMerchant: (resolve, reject, validationURL) => {
+// Call the validation endpoint with validationURL.
+// Call resolve(MERCHANTSESSION) or reject() to complete merchant validation.
+}
+})
+.mount('#dropin');
+  }
+};
 </script>
