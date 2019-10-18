@@ -9,8 +9,46 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get("/api/payments", (req, res, next) => {
+app.all("/api/payments", (req, res, next) => {
   console.log("process.env:", process.env.USERNAME, process.env.PASSWORD);
+  console.log("########################################");
+  console.log("body", req.body);
+  axios({
+    method: "post",
+    url: "https://checkout-test.adyen.com/v49/payments",
+    auth: {
+      username: process.env.USERNAME, //configurable
+      password: process.env.PASSWORD //configurable
+    },
+    data: {
+      merchantAccount: "Shernaz", //configurable
+      reference: "Sherry iDEAL test",
+      amount: {
+        currency: "EUR",
+        value: 1000
+      },
+      paymentMethod: req.body.paymentMethod,
+      returnUrl: "https://your-company.com/..."
+    }
+  })
+    .then(({ data }) => {
+      return res.json(data);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+});
+
+app.all("/api/payments_hardcoded", (req, res, next) => {
+  console.log("process.env:", process.env.USERNAME, process.env.PASSWORD);
+  console.log("########################################");
+  console.log("body", req.body);
+  // console.log("########################################");
+  // console.log(req);
+  // console.log("########################################");
+  // console.log("########################################");
+  // console.log(res);
+  // console.log("########################################");
   axios({
     method: "post",
     url: "https://checkout-test.adyen.com/v49/payments",

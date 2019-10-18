@@ -1,6 +1,11 @@
 <template>
   <div>
     <div class="card text-center m-3">Hello Dropin Homepage</div>
+    <div class="card">
+<a class="card" href="https://lkog6-8081.sse.codesandbox.io">Dropin Page Components</a>
+<a class="card" href="https://lkog6-8081.sse.codesandbox.io/api/payments">API - api/payments</a>
+<a class="card" href="https://lkog6-8081.sse.codesandbox.io/api/paymentMethods">API - api/paymentMethods</a>
+    </div>
     <div id="dropin"></div>
   </div>  
 </template>
@@ -34,11 +39,17 @@ export default {
           }
         },
         onSubmit: (state, dropin) => {
-          makePayment(state.data)
-          // Your function calling your server to make the /payments request
-          .then(action => {
-              dropin.handleAction(action);
+          console.log('on submit',state, state.data);
+          axios({
+            method: 'post',
+            url: '/api/payments',
+            data: state.data
+          })
+          .then(({data}) => {
+            console.log({data});
+              dropin.handleAction(data.action);
             // Drop-in handles the action object from the /payments response
+            console.log('makepayment then');
               })
           .catch(error => {
             throw Error(error);

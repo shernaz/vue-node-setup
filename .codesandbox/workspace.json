@@ -7,11 +7,11 @@
         },
         {
           "id": "codesandbox.browser",
-          "closeable": true,
           "options": {
             "port": 8081,
             "url": "https://lkog6-8081.sse.codesandbox.io"
-          }
+          },
+          "closeable": true
         }
       ]
     },
