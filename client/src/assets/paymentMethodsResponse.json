@@ -1,1 +1,675 @@
-// TODO: Rendor server response or copy from local postman
+{
+  "groups": [
+    {
+      "name": "Credit Card",
+      "types": ["bcmc", "maestro", "mc", "mc_applepay", "visa"]
+    },
+    {
+      "name": "AliPay",
+      "types": ["alipay", "alipay_wap"]
+    }
+  ],
+  "paymentMethods": [
+    {
+      "details": [
+        {
+          "details": [
+            {
+              "key": "firstName",
+              "type": "text"
+            },
+            {
+              "key": "lastName",
+              "type": "text"
+            },
+            {
+              "items": [
+                {
+                  "id": "M",
+                  "name": "male"
+                },
+                {
+                  "id": "F",
+                  "name": "female"
+                }
+              ],
+              "key": "gender",
+              "type": "radio"
+            },
+            {
+              "key": "dateOfBirth",
+              "type": "date"
+            },
+            {
+              "key": "telephoneNumber",
+              "type": "tel"
+            },
+            {
+              "key": "shopperEmail",
+              "type": "emailAddress"
+            }
+          ],
+          "key": "personalDetails",
+          "type": "fieldSet"
+        },
+        {
+          "details": [
+            {
+              "key": "street",
+              "type": "text"
+            },
+            {
+              "key": "houseNumberOrName",
+              "type": "text"
+            },
+            {
+              "key": "city",
+              "type": "text"
+            },
+            {
+              "key": "postalCode",
+              "type": "text"
+            },
+            {
+              "key": "stateOrProvince",
+              "optional": true,
+              "type": "text"
+            },
+            {
+              "items": [
+                {
+                  "id": "NL",
+                  "name": "Netherlands"
+                },
+                {
+                  "id": "BE",
+                  "name": "Belgium"
+                }
+              ],
+              "key": "country",
+              "type": "select"
+            }
+          ],
+          "key": "billingAddress",
+          "type": "address"
+        },
+        {
+          "key": "separateDeliveryAddress",
+          "optional": true,
+          "type": "boolean",
+          "value": "false"
+        },
+        {
+          "details": [
+            {
+              "key": "street",
+              "type": "text"
+            },
+            {
+              "key": "houseNumberOrName",
+              "type": "text"
+            },
+            {
+              "key": "city",
+              "type": "text"
+            },
+            {
+              "key": "postalCode",
+              "type": "text"
+            },
+            {
+              "key": "stateOrProvince",
+              "optional": true,
+              "type": "text"
+            },
+            {
+              "items": [
+                {
+                  "id": "NL",
+                  "name": "Netherlands"
+                },
+                {
+                  "id": "BE",
+                  "name": "Belgium"
+                }
+              ],
+              "key": "country",
+              "type": "select"
+            }
+          ],
+          "key": "deliveryAddress",
+          "optional": true,
+          "type": "address"
+        },
+        {
+          "key": "consentCheckbox",
+          "type": "boolean"
+        }
+      ],
+      "name": "AfterPay Invoice",
+      "supportsRecurring": true,
+      "type": "afterpay_default"
+    },
+    {
+      "name": "AliPay",
+      "supportsRecurring": true,
+      "type": "alipay"
+    },
+    {
+      "name": "AliPay",
+      "supportsRecurring": true,
+      "type": "alipay_wap"
+    },
+    {
+      "details": [
+        {
+          "key": "number",
+          "type": "text"
+        },
+        {
+          "key": "expiryMonth",
+          "type": "text"
+        },
+        {
+          "key": "expiryYear",
+          "type": "text"
+        },
+        {
+          "key": "holderName",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "name": "Bancontact card",
+      "supportsRecurring": true,
+      "type": "bcmc"
+    },
+    {
+      "name": "Online bank transfer.",
+      "supportsRecurring": true,
+      "type": "directEbanking"
+    },
+    {
+      "name": "BACS Direct Debit",
+      "supportsRecurring": true,
+      "type": "directdebit_GB"
+    },
+    {
+      "details": [
+        {
+          "items": [
+            {
+              "id": "231",
+              "name": "POP Pankki"
+            },
+            {
+              "id": "551",
+              "name": "Komerční banka"
+            },
+            {
+              "id": "232",
+              "name": "Aktia"
+            },
+            {
+              "id": "552",
+              "name": "Raiffeisen"
+            },
+            {
+              "id": "233",
+              "name": "Säästöpankki"
+            },
+            {
+              "id": "750",
+              "name": "Swedbank"
+            },
+            {
+              "id": "211",
+              "name": "Nordea"
+            },
+            {
+              "id": "553",
+              "name": "ČSOB"
+            },
+            {
+              "id": "234",
+              "name": "S-Pankki"
+            },
+            {
+              "id": "751",
+              "name": "SEB"
+            },
+            {
+              "id": "554",
+              "name": "Moneta"
+            },
+            {
+              "id": "235",
+              "name": "OmaSP"
+            },
+            {
+              "id": "752",
+              "name": "Nordea"
+            },
+            {
+              "id": "213",
+              "name": "Op-Pohjola"
+            },
+            {
+              "id": "555",
+              "name": "UniCredit"
+            },
+            {
+              "id": "753",
+              "name": "LHV"
+            },
+            {
+              "id": "556",
+              "name": "Fio"
+            },
+            {
+              "id": "557",
+              "name": "mBank"
+            },
+            {
+              "id": "216",
+              "name": "Handelsbanken"
+            },
+            {
+              "id": "558",
+              "name": "Air Bank"
+            },
+            {
+              "id": "260",
+              "name": "Länsförsäkringar"
+            },
+            {
+              "id": "240",
+              "name": "BankDeposit"
+            },
+            {
+              "id": "265",
+              "name": "Sparbanken"
+            },
+            {
+              "id": "640",
+              "name": "BankDeposit"
+            },
+            {
+              "id": "200",
+              "name": "Ålandsbanken"
+            },
+            {
+              "id": "940",
+              "name": "Swedbank"
+            },
+            {
+              "id": "500",
+              "name": "Česká spořitelna"
+            },
+            {
+              "id": "720",
+              "name": "Swedbank"
+            },
+            {
+              "id": "941",
+              "name": "SEB"
+            },
+            {
+              "id": "204",
+              "name": "Danske Bank"
+            },
+            {
+              "id": "721",
+              "name": "SEB"
+            },
+            {
+              "id": "942",
+              "name": "Citadele"
+            },
+            {
+              "id": "205",
+              "name": "Handelsbanken"
+            },
+            {
+              "id": "722",
+              "name": "DNB"
+            },
+            {
+              "id": "943",
+              "name": "DNB"
+            },
+            {
+              "id": "206",
+              "name": "Nordea"
+            },
+            {
+              "id": "723",
+              "name": "Šiaulių bankas"
+            },
+            {
+              "id": "207",
+              "name": "SEB"
+            },
+            {
+              "id": "724",
+              "name": "Nordea"
+            },
+            {
+              "id": "505",
+              "name": "Komerční banka"
+            },
+            {
+              "id": "208",
+              "name": "Skandiabanken"
+            },
+            {
+              "id": "209",
+              "name": "Swedbank"
+            }
+          ],
+          "key": "issuer",
+          "type": "select"
+        }
+      ],
+      "name": "Bank Payment",
+      "supportsRecurring": true,
+      "type": "entercash"
+    },
+    {
+      "details": [
+        {
+          "key": "bic",
+          "type": "text"
+        }
+      ],
+      "name": "GiroPay",
+      "supportsRecurring": true,
+      "type": "giropay"
+    },
+    {
+      "details": [
+        {
+          "items": [
+            {
+              "id": "1121",
+              "name": "Test Issuer"
+            },
+            {
+              "id": "1154",
+              "name": "Test Issuer 5"
+            },
+            {
+              "id": "1153",
+              "name": "Test Issuer 4"
+            },
+            {
+              "id": "1152",
+              "name": "Test Issuer 3"
+            },
+            {
+              "id": "1151",
+              "name": "Test Issuer 2"
+            },
+            {
+              "id": "1162",
+              "name": "Test Issuer Cancelled"
+            },
+            {
+              "id": "1161",
+              "name": "Test Issuer Pending"
+            },
+            {
+              "id": "1160",
+              "name": "Test Issuer Refused"
+            },
+            {
+              "id": "1159",
+              "name": "Test Issuer 10"
+            },
+            {
+              "id": "1158",
+              "name": "Test Issuer 9"
+            },
+            {
+              "id": "1157",
+              "name": "Test Issuer 8"
+            },
+            {
+              "id": "1156",
+              "name": "Test Issuer 7"
+            },
+            {
+              "id": "1155",
+              "name": "Test Issuer 6"
+            }
+          ],
+          "key": "issuer",
+          "type": "select"
+        }
+      ],
+      "name": "iDEAL",
+      "supportsRecurring": true,
+      "type": "ideal"
+    },
+    {
+      "name": "Pay later with Klarna.",
+      "supportsRecurring": true,
+      "type": "klarna"
+    },
+    {
+      "name": "Slice it with Klarna.",
+      "supportsRecurring": true,
+      "type": "klarna_account"
+    },
+    {
+      "brands": ["bcmc", "maestro", "mc", "mc_applepay", "visa"],
+      "details": [
+        {
+          "key": "number",
+          "type": "text"
+        },
+        {
+          "key": "expiryMonth",
+          "type": "text"
+        },
+        {
+          "key": "expiryYear",
+          "type": "text"
+        },
+        {
+          "key": "cvc",
+          "type": "text"
+        },
+        {
+          "key": "holderName",
+          "optional": true,
+          "type": "text"
+        }
+      ],
+      "name": "Credit Card",
+      "type": "scheme"
+    },
+    {
+      "name": "PayPal",
+      "supportsRecurring": true,
+      "type": "paypal"
+    },
+    {
+      "details": [
+        {
+          "details": [
+            {
+              "key": "firstName",
+              "type": "text"
+            },
+            {
+              "key": "lastName",
+              "type": "text"
+            },
+            {
+              "items": [
+                {
+                  "id": "M",
+                  "name": "male"
+                },
+                {
+                  "id": "F",
+                  "name": "female"
+                }
+              ],
+              "key": "gender",
+              "type": "radio"
+            },
+            {
+              "key": "dateOfBirth",
+              "type": "date"
+            },
+            {
+              "key": "telephoneNumber",
+              "type": "tel"
+            },
+            {
+              "key": "shopperEmail",
+              "type": "emailAddress"
+            }
+          ],
+          "key": "personalDetails",
+          "type": "fieldSet"
+        },
+        {
+          "details": [
+            {
+              "key": "street",
+              "type": "text"
+            },
+            {
+              "key": "houseNumberOrName",
+              "type": "text"
+            },
+            {
+              "key": "city",
+              "type": "text"
+            },
+            {
+              "key": "postalCode",
+              "type": "text"
+            },
+            {
+              "key": "stateOrProvince",
+              "optional": true,
+              "type": "text"
+            },
+            {
+              "items": [
+                {
+                  "id": "AT",
+                  "name": "Austria"
+                },
+                {
+                  "id": "CH",
+                  "name": "Switzerland"
+                },
+                {
+                  "id": "DE",
+                  "name": "Germany"
+                },
+                {
+                  "id": "NL",
+                  "name": "Netherlands"
+                }
+              ],
+              "key": "country",
+              "type": "select"
+            }
+          ],
+          "key": "billingAddress",
+          "type": "address"
+        },
+        {
+          "key": "separateDeliveryAddress",
+          "optional": true,
+          "type": "boolean",
+          "value": "false"
+        },
+        {
+          "details": [
+            {
+              "key": "street",
+              "type": "text"
+            },
+            {
+              "key": "houseNumberOrName",
+              "type": "text"
+            },
+            {
+              "key": "city",
+              "type": "text"
+            },
+            {
+              "key": "postalCode",
+              "type": "text"
+            },
+            {
+              "key": "stateOrProvince",
+              "optional": true,
+              "type": "text"
+            },
+            {
+              "items": [
+                {
+                  "id": "AT",
+                  "name": "Austria"
+                },
+                {
+                  "id": "CH",
+                  "name": "Switzerland"
+                },
+                {
+                  "id": "DE",
+                  "name": "Germany"
+                },
+                {
+                  "id": "NL",
+                  "name": "Netherlands"
+                }
+              ],
+              "key": "country",
+              "type": "select"
+            }
+          ],
+          "key": "deliveryAddress",
+          "optional": true,
+          "type": "address"
+        }
+      ],
+      "name": "RatePay Invoice",
+      "supportsRecurring": true,
+      "type": "ratepay"
+    },
+    {
+      "details": [
+        {
+          "key": "sepa.ownerName",
+          "type": "text"
+        },
+        {
+          "key": "sepa.ibanNumber",
+          "type": "text"
+        }
+      ],
+      "name": "SEPA Direct Debit",
+      "supportsRecurring": true,
+      "type": "sepadirectdebit"
+    },
+    {
+      "name": "Trustly Direct bank e-Payments",
+      "supportsRecurring": true,
+      "type": "trustly"
+    },
+    {
+      "name": "Online Banking by Trustpay",
+      "supportsRecurring": true,
+      "type": "trustpay"
+    }
+  ]
+}

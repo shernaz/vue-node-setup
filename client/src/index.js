@@ -1,10 +1,12 @@
-import Vue from 'vue';
+import Vue from "vue";
 
-import { router } from './router';
-import App from './app/App';
+import { router } from "./router";
+import App from "./app/App";
+
+Vue.config.devtools = true;
 
 new Vue({
-    el: '#app',
-    router,
-    render: h => h(App)
+  el: "#app",
+  router,
+  render: h => h(App)
 });
