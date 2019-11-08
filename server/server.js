@@ -23,10 +23,7 @@ app.all("/api/payments", (req, res, next) => {
     data: {
       merchantAccount: "Shernaz", //configurable
       reference: "Sherry iDEAL test",
-      amount: {
-        currency: "EUR",
-        value: 1000
-      },
+      amount: req.body.amount,
       paymentMethod: req.body.paymentMethod,
       returnUrl: "https://your-company.com/..."
     }
@@ -72,8 +69,10 @@ app.all("/api/payments_hardcoded", (req, res, next) => {
     });
 });
 
-app.get("/api/paymentMethods", (req, res, next) => {
+app.all("/api/paymentMethods", (req, res, next) => {
+  console.log("******************************************");
   console.log("body", req.body);
+  console.log("******************************************");
   axios({
     method: "post",
     url: "https://checkout-test.adyen.com/v49/paymentMethods",
@@ -82,8 +81,7 @@ app.get("/api/paymentMethods", (req, res, next) => {
       password: process.env.PASSWORD //configurable
     },
     data: {
-      merchantAccount: "Shernaz", //configurable
-      amount: req.body.amount
+      merchantAccount: "Shernaz" //configurable
     }
   })
     .then(({ data }) => {

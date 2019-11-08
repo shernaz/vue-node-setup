@@ -1,17 +1,9 @@
 <template>
   <div>
     <!-- <div class="card text-center m-3">Hello Dropin Homepage</div> -->
-    <!-- <div class="card">
-      <a class="card" href="https://lkog6-8081.sse.codesandbox.io">Dropin Page Components</a>
-      <a class="card" href="https://lkog6-8081.sse.codesandbox.io/api/payments">API - api/payments</a>
-      <a
-        class="card"
-        href="https://lkog6-8081.sse.codesandbox.io/api/paymentMethods"
-      >API - api/paymentMethods</a>
-    </div>-->
     <div class="card">
-      <input v-model="amount">
-      <input v-model="currency">
+      <input v-model="amount.currency">
+      <input v-model="amount.value">
     </div>
     <div id="dropin"></div>
   </div>
@@ -22,29 +14,46 @@ import axios from "axios";
 
 export default {
   data: () => ({
-    amount: 0,
-    currency: "EUR"
+    configuration: {},
+    amount: {
+      currency: "EUR",
+      value: 10
+    }
   }),
-  mounted: function() {
-    const userData = {
-      amount: {
-        amount: this.amount,
-        currency: this.currency
-      }
-    };
-    axios({
-      method: "get",
-      url: "/api/paymentMethods",
-      data: userData
-    }).then(function({ data }) {
-      console.log(data.originKey);
-      const configuration = {
-        locale: "en-US",
-        environment: "test",
-        originKey: data.originKey,
-        paymentMethodsResponse: data
+  created() {
+    this.initConfiguration();
+  },
+  mounted() {
+    // `this` points to the vm instance
+  },
+  methods: {
+    initConfiguration() {
+      const myVM = this;
+      axios({
+        method: "post",
+        url: "/api/paymentMethods"
+      }).then(function({ data }) {
+        myVM.configuration = {
+          locale: "en-US",
+          environment: "test",
+          originKey: data.originKey,
+          paymentMethodsResponse: data
+        };
+        myVM.loadCheckoutConfig();
+      });
+    },
+
+    loadCheckoutConfig(config) {
+      console.log("inside loadCheckoutConfig", this.configuration);
+
+      const checkout = new AdyenCheckout(this.configuration);
+
+      const userData = {
+        amount: {
+          amount: 0,
+          currency: "EUR"
+        }
       };
-      const checkout = new AdyenCheckout(configuration);
 
       const dropin = checkout
         .create("dropin", {
@@ -57,21 +66,7 @@ export default {
             }
           },
           onSubmit: (state, dropin) => {
-            console.log(state.data, this.amount, this.currency);
-
-            console.log("Amount and Currency:");
-            axios({
-              method: "post",
-              url: "/api/payments",
-              data: state.data
-            })
-              .then(({ data }) => {
-                console.log({ data });
-                dropin.handleAction(data.action);
-              })
-              .catch(error => {
-                throw Error(error);
-              });
+            this.makePayment(state, dropin);
           },
           onAdditionalDetails: (state, dropin) => {
             makeDetailsCall(state.data)
@@ -91,9 +86,21 @@ export default {
           }
         })
         .mount("#dropin");
-    });
-    // `this` points to the vm instance
+    },
+    makePayment(state, dropin) {
+      const myVM = this;
+      axios({
+        method: "post",
+        url: "/api/payments",
+        data: { ...state.data, amount: myVM.amount }
+      })
+        .then(({ data }) => {
+          dropin.handleAction(data.action);
+        })
+        .catch(error => {
+          throw Error(error);
+        });
+    }
   }
 };
 </script>
-
