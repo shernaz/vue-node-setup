@@ -10,9 +10,9 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.all("/api/payments", (req, res, next) => {
-  console.log("process.env:", process.env.USERNAME, process.env.PASSWORD);
   console.log("########################################");
-  console.log("body", req.body);
+  console.log(req.body);
+  console.log("########################################");
   axios({
     method: "post",
     url: "https://checkout-test.adyen.com/v49/payments",
@@ -43,12 +43,6 @@ app.all("/api/payments_hardcoded", (req, res, next) => {
   console.log("process.env:", process.env.USERNAME, process.env.PASSWORD);
   console.log("########################################");
   console.log("body", req.body);
-  // console.log("########################################");
-  // console.log(req);
-  // console.log("########################################");
-  // console.log("########################################");
-  // console.log(res);
-  // console.log("########################################");
   axios({
     method: "post",
     url: "https://checkout-test.adyen.com/v49/payments",
@@ -79,6 +73,7 @@ app.all("/api/payments_hardcoded", (req, res, next) => {
 });
 
 app.get("/api/paymentMethods", (req, res, next) => {
+  console.log("body", req.body);
   axios({
     method: "post",
     url: "https://checkout-test.adyen.com/v49/paymentMethods",
@@ -86,12 +81,13 @@ app.get("/api/paymentMethods", (req, res, next) => {
       username: process.env.USERNAME, //configurable
       password: process.env.PASSWORD //configurable
     },
-
     data: {
-      merchantAccount: "Shernaz" //configurable
+      merchantAccount: "Shernaz", //configurable
+      amount: req.body.amount
     }
   })
     .then(({ data }) => {
+      data.originKey = process.env.ORIGINKEY;
       return res.json(data);
     })
     .catch(error => {
