@@ -2,6 +2,9 @@
   <div>
     <!-- <div class="card text-center m-3">Hello Dropin Homepage</div> -->
     <div class="card">
+      <a href="/users">User management</a>
+    </div>
+    <div class="card">
       <input v-model="amount.currency">
       <input v-model="amount.value">
     </div>
@@ -44,8 +47,6 @@ export default {
     },
 
     loadCheckoutConfig(config) {
-      console.log("inside loadCheckoutConfig", this.configuration);
-
       const checkout = new AdyenCheckout(this.configuration);
 
       const userData = {
